@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid mt-5 py-5 bg-light-blue">
+        <div class="container position-relative text-center">
+            <div class="jumbotron mt-5">
+                <h1>Welcome, {{ username }}</h1>
+                <hr class="my-4">
+                <p class="lead">This is the Admin Page.</p>
+            </div>
+        </div>
+        {% if complaints %}
+            {% for complaint in complaints %}
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="fw-bold mb-0">User {{ complaint.user_id }} | {{ complaint.username }}</h5>
+                    <p class="mb-0">Complaint No {{ complaint.complaint_id }}</p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ complaint.subject }}</h5>
+                    <p class="card-text">{{ complaint.description }}</p>
+                    <p class="text-muted mb-0">Created at {{ complaint.created_at }}</p>
+                    {% if complaint.message %}
+                    <hr>
+                    <h5 class="fw-bold mb-0">Answer from Admin:</h5>
+                    <p class="card-text">{{ complaint.message }}</p>
+                    <p class="text-muted mb-0">Reply ID {{ complaint.reply_id }} From Admin ({{ username }})</p>
+                    <form action="/deleteadmin" method="post">
+                        <input name="reply_id" type="hidden" value="{{ complaint.reply_id }}">
+                        <button type="submit" class="btn btn-danger mt-3">Delete Reply</button>
+                    </form>
+                    {% else %}
+                    <hr>
+                    <form action="/reply" method="post">
+                        <div class="form-floating mb-3">
+                            <textarea name="message" id="message" style="height: 150px" class="form-control" placeholder="Answer"></textarea>
+                            <label for="message">Answer</label>
+                        </div>
+                        <input name="complaint_id" type="hidden" value="{{ complaint.complaint_id}}">
+                        <button type="submit" class="btn btn-primary">Reply Complain</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p class="position-relative">No complaints to answer.</p>
+        {% endif %}
+    </div>
+{% endblock %}

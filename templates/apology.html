@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <!-- https://memegen.link/ -->
+    <div class="alert alert-danger mt-5" style="height: 100vh;">
+        <h4 class="alert-heading">Oops, sorry about that!</h4>
+        <hr>
+        <p>{{ top }}</p>
+        <p>{{ bottom }}</p>
+        <hr>
+        <p class="mb-0">Please try again or contact us if the problem persists.</p>
+    </div>
+    <!-- <img alt="{{ top }}" class="border img-fluid" src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://i.imgur.com/CsCgN7Ll.png&width=400" title="{{ top }}"> -->
+{% endblock %}
+
+
+
+

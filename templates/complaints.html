@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Complaints
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid mt-5 py-5"
+     style="background-image: url(static/signup_login.jpg);
+            height: 700px;
+            background-position: center;
+            background-size: cover;">
+    <div class="position-absolute top-0 start-0 w-100"
+         style="background-color: rgba(0, 0, 0, 0.6); height: 700px;"></div>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card mb-5">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8">
+                            <h3>Make Complaint</h3>
+                        </div>
+                        <div class="col-4 ms-auto">
+                            <a href="/" class="btn btn-primary">Return to Complaint List</a>
+                        </div>
+                    </div>
+                    <p class="text-primary">Feel free to email us via HelpDesk@gmail.com</p>
+                </div>
+                <div class="card-body">
+                    <form action="/complaints" method="POST">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <textarea name="subject" id="subject" style="height: 50px"
+                                      class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Write your complaint</label>
+                            <textarea name="description" id="description" style="height: 100px"
+                                      class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary my-3">Make Complaint</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

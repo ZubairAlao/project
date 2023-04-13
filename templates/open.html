@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Open Chat
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" integrity="sha512-c0weyuyhHAlQ2jK6/fmLwvPkZLc3lq3pGK0eU/4y9YcHLUjKsU4bLdMr2ZTJLxtj/T1HQH6SjBnbQXgWYyx+sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid py-5 text-dark" style="background-color: #f8f9fa;">
+  <div class="container position-relative text-center">
+    <div class="jumbotron mt-5" style="background-color: #fff;">
+      <h1>Welcome, {{ username }}</h1>
+      <hr class="my-4">
+      <p class="lead">Check your reply or <a href="/" class="btn btn-primary">Go back to complaint table</a></p>
+    </div>
+  </div>
+  {% if complaints %}
+    {% for complaint in complaints %}
+      <div class="question position-relative card my-3 p-3" style="background-color: #fff;">
+        <div class="card-body">
+          <h3 class="fw-bold">Complaint No {{ complaint.complaint_id }}</h3>
+          <p class="text-muted mb-1">Subject: {{ complaint.subject }}</p>
+          <p class="text-muted mb-3">Created at {{ complaint.created_at }}</p>
+          <p><strong>Question from User {{ complaint.user_id }} | {{ complaint.username }}:</strong> {{ complaint.description }}</p>
+          {% if complaint.message %}
+            <p><strong>Answer from Admin:</strong> {{ complaint.message }}</p>
+            <strong><a class="btn btn-primary" href="/complaints">Make Another Complaint</a></strong>
+          {% else %}
+          <p class="bg-warning text-dark d-inline-block p-1"><strong>Waiting for admin to reply...</strong></p>
+            <form action="/deletecomplaint" method="post">
+              <input type="hidden" name="complaint_id" value="{{ complaint.complaint_id}}"/>
+              <button class="btn btn-danger" type="submit">Delete Complaint</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="position-relative">No complaints found.</p>
+  {% endif %}
+</div>
+{% endblock %}
+
